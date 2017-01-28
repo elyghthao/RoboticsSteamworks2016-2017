@@ -11,7 +11,7 @@
 
 package org.usfirst.frc3588.Steamworks.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc3588.VisionTester.Robot;
+import org.usfirst.frc3588.Steamworks.Robot;
 
 /**
  *

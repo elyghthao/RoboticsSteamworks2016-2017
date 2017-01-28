@@ -11,8 +11,8 @@
 
 package org.usfirst.frc3588.Steamworks.subsystems;
 
-import org.usfirst.frc3588.VisionTester.RobotMap;
-import org.usfirst.frc3588.VisionTester.commands.*;
+import org.usfirst.frc3588.Steamworks.RobotMap;
+import org.usfirst.frc3588.Steamworks.commands.*;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 

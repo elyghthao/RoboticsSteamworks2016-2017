@@ -24,8 +24,12 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc3588.VisionTester.commands.*;
-import org.usfirst.frc3588.VisionTester.subsystems.*;
+import org.usfirst.frc3588.Steamworks.commands.AutonomousCommand;
+import org.usfirst.frc3588.Steamworks.subsystems.Chassis;
+import org.usfirst.frc3588.Steamworks.subsystems.Climbing;
+import org.usfirst.frc3588.Steamworks.subsystems.Gears;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the

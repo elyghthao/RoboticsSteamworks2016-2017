@@ -11,11 +11,13 @@
 
 package org.usfirst.frc3588.Steamworks;
 
-import org.usfirst.frc3588.VisionTester.commands.*;
+import org.usfirst.frc3588.Steamworks.commands.AutonomousCommand;
+import org.usfirst.frc3588.Steamworks.commands.ClimbingCommand;
+import org.usfirst.frc3588.Steamworks.commands.DriveCommand;
+import org.usfirst.frc3588.Steamworks.commands.GearReleaseCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
-import org.usfirst.frc3588.VisionTester.subsystems.*;
 
 
 /**
