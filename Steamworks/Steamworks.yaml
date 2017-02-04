@@ -477,7 +477,7 @@ Children:
     Base: Command
     Name: Climbing Command
   - Children: []
-    Properties: &id010
+    Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -496,7 +496,7 @@ Children:
     Base: Command
     Name: Drive Straight
   - Children: []
-    Properties: &id012
+    Properties:
       Parameters: !!robotbuilder.data.properties.ParametersProperty
         default: []
         name: Parameters
@@ -521,7 +521,8 @@ Children:
         default: []
         name: Parameters
         validators: null
-        value: []
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: autoMode, type: int}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -531,58 +532,7 @@ Children:
         default: []
         name: Commands
         validators: [List]
-        value:
-        - &id013 !!robotbuilder.data.CommandGroupEntry
-          command:
-            base: &id011
-              help: A command specifies an action that the robot can perform.
-              name: Command
-              properties:
-              - !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-                name: Requires, type: Subsystem, validators: null, value: None}
-              - !!robotbuilder.data.properties.BooleanProperty {default: true, name: Button on SmartDashboard,
-                validators: null, value: true}
-              - !!robotbuilder.data.properties.ParametersProperty
-                default: []
-                name: Parameters
-                validators: null
-                value: []
-              - !!robotbuilder.data.properties.ParameterSetProperty
-                default: &id009 []
-                name: Parameter presets
-                validators: null
-                value: *id009
-              supports: {}
-              type: Command
-            name: Drive Straight
-            properties: *id010
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value:
-            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: driveTime,
-              type: double, value: '0'}
-          previous: null
-        - !!robotbuilder.data.CommandGroupEntry
-          command:
-            base: *id011
-            name: Turn
-            properties: *id012
-          hasMatch: true
-          order: Sequential
-          parameters:
-            default: []
-            name: ParametersProperty
-            validators: null
-            value:
-            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: turnAngle,
-              type: double, value: '0'}
-            - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: turnTime,
-              type: double, value: '0'}
-          previous: *id013
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
@@ -617,7 +567,9 @@ Properties:
     default: []
     name: Autonomous command parameters
     validators: null
-    value: []
+    value:
+    - !!robotbuilder.data.properties.ValuedParameterDescriptor {name: autoMode, type: int,
+      value: '0'}
   Java Package: !!robotbuilder.data.properties.StringProperty {default: org.usfirst.frc0000,
     name: Java Package, validators: null, value: org.usfirst.frc3588}
   Use Default Java Package: !!robotbuilder.data.properties.BooleanProperty {default: true,

@@ -9,6 +9,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -27,7 +28,8 @@ public class GripPipeline implements VisionPipeline {
 
 	//Outputs
 	private Mat blurOutput = new Mat();
-	private Mat hsvThresholdOutput = new Mat();
+	private Mat hslThresholdOutput = new Mat();
+	private Mat cvErodeOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
@@ -42,30 +44,39 @@ public class GripPipeline implements VisionPipeline {
 		// Step Blur0:
 		Mat blurInput = source0;
 		BlurType blurType = BlurType.get("Median Filter");
-		double blurRadius = 33.333333333333336;
+		double blurRadius = 9.90990990990991;
 		blur(blurInput, blurType, blurRadius, blurOutput);
 
-		// Step HSV_Threshold0:
-		Mat hsvThresholdInput = blurOutput;
-		double[] hsvThresholdHue = {0.0, 23.344709897610922};
-		double[] hsvThresholdSaturation = {155.93525179856115, 255.0};
-		double[] hsvThresholdValue = {204.09172661870502, 255.0};
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		// Step HSL_Threshold0:
+		Mat hslThresholdInput = blurOutput;
+		double[] hslThresholdHue = {0.0, 180.0};
+		double[] hslThresholdSaturation = {237.57194244604312, 255.0};
+		double[] hslThresholdLuminance = {251.33093525179854, 255.0};
+		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
+
+		// Step CV_erode0:
+		Mat cvErodeSrc = hslThresholdOutput;
+		Mat cvErodeKernel = new Mat();
+		Point cvErodeAnchor = new Point(-1, -1);
+		double cvErodeIterations = 1.0;
+		int cvErodeBordertype = Core.BORDER_CONSTANT;
+		Scalar cvErodeBordervalue = new Scalar(-1);
+		cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, cvErodeOutput);
 
 		// Step Find_Contours0:
-		Mat findContoursInput = hsvThresholdOutput;
+		Mat findContoursInput = cvErodeOutput;
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 1500.0;
+		double filterContoursMinArea = 100.0;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
 		double filterContoursMinHeight = 0.0;
 		double filterContoursMaxHeight = 1000.0;
-		double[] filterContoursSolidity = {0, 100};
+		double[] filterContoursSolidity = {0.0, 100};
 		double filterContoursMaxVertices = 1000000.0;
 		double filterContoursMinVertices = 0.0;
 		double filterContoursMinRatio = 0.0;
@@ -83,11 +94,19 @@ public class GripPipeline implements VisionPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a HSV_Threshold.
-	 * @return Mat output from HSV_Threshold.
+	 * This method is a generated getter for the output of a HSL_Threshold.
+	 * @return Mat output from HSL_Threshold.
 	 */
-	public Mat hsvThresholdOutput() {
-		return hsvThresholdOutput;
+	public Mat hslThresholdOutput() {
+		return hslThresholdOutput;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a CV_erode.
+	 * @return Mat output from CV_erode.
+	 */
+	public Mat cvErodeOutput() {
+		return cvErodeOutput;
 	}
 
 	/**
@@ -173,19 +192,43 @@ public class GripPipeline implements VisionPipeline {
 	}
 
 	/**
-	 * Segment an image based on hue, saturation, and value ranges.
+	 * Segment an image based on hue, saturation, and luminance ranges.
 	 *
 	 * @param input The image on which to perform the HSL threshold.
 	 * @param hue The min and max hue
 	 * @param sat The min and max saturation
-	 * @param val The min and max value
+	 * @param lum The min and max luminance
 	 * @param output The image in which to store the output.
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val,
-	    Mat out) {
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]),
-			new Scalar(hue[1], sat[1], val[1]), out);
+	private void hslThreshold(Mat input, double[] hue, double[] sat, double[] lum,
+		Mat out) {
+		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HLS);
+		Core.inRange(out, new Scalar(hue[0], lum[0], sat[0]),
+			new Scalar(hue[1], lum[1], sat[1]), out);
+	}
+
+	/**
+	 * Expands area of lower value in an image.
+	 * @param src the Image to erode.
+	 * @param kernel the kernel for erosion.
+	 * @param anchor the center of the kernel.
+	 * @param iterations the number of times to perform the erosion.
+	 * @param borderType pixel extrapolation method.
+	 * @param borderValue value to be used for a constant border.
+	 * @param dst Output Image.
+	 */
+	private void cvErode(Mat src, Mat kernel, Point anchor, double iterations,
+		int borderType, Scalar borderValue, Mat dst) {
+		if (kernel == null) {
+			kernel = new Mat();
+		}
+		if (anchor == null) {
+			anchor = new Point(-1,-1);
+		}
+		if (borderValue == null) {
+			borderValue = new Scalar(-1);
+		}
+		Imgproc.erode(src, dst, kernel, anchor, (int)iterations, borderType, borderValue);
 	}
 
 	/**
