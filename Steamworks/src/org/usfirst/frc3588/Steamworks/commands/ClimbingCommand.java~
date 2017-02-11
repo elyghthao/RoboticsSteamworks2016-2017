@@ -46,17 +46,26 @@ public class ClimbingCommand extends Command {
     @Override
 	protected void initialize() {
     	contoursFound = false;
+    	visionThread = new VisionThread(Robot.cam0, new GripPipeline(), pipeline -> {
+			synchronized (imgLock) {
+				System.out.println(pipeline.filterContoursOutput().isEmpty());
+				contoursFound = pipeline.filterContoursOutput().isEmpty();
+			
+			}
+		});
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	visionThread = new VisionThread(Robot.cam0, new GripPipeline(), pipeline -> {
-			synchronized (imgLock) {
-				System.out.println(pipeline.filterContoursOutput().isEmpty());
-				contoursFound = pipeline.filterContoursOutput().isEmpty();
-			}
-		});
+//    	visionThread = new VisionThread(Robot.cam0, new GripPipeline(), pipeline -> {
+//			synchronized (imgLock) {
+//				System.out.println(pipeline.filterContoursOutput().isEmpty());
+//				contoursFound = pipeline.filterContoursOutput().isEmpty();
+//			
+//			}
+//		});
+    	
 		visionThread.start();
     	if (!contoursFound) {
         	RobotMap.climbingMotor.set(1);
