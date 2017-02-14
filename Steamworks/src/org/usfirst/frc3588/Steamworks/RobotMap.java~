@@ -42,8 +42,6 @@ public class RobotMap {
     public static DigitalInput climbinglimitSwitch;
     public static CANTalon climbingLeftSweeper;
     public static CANTalon climbingRightSweeper;
-    public static Encoder climbingLeftEncoder;
-    public static Encoder climbingRightEncoder;
     public static Encoder climbingLeftRopeEncoder;
     public static Encoder climbingRightRopeEncoder;
     public static DoubleSolenoid gearsSolenoid;
@@ -88,14 +86,6 @@ public class RobotMap {
         climbingRightSweeper = new CANTalon(6);
         LiveWindow.addActuator("Climbing", "RightSweeper", climbingRightSweeper);
         
-        climbingLeftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
-        LiveWindow.addSensor("Climbing", "LeftEncoder", climbingLeftEncoder);
-        climbingLeftEncoder.setDistancePerPulse(1.0);
-        climbingLeftEncoder.setPIDSourceType(PIDSourceType.kRate);
-        climbingRightEncoder = new Encoder(4, 5, false, EncodingType.k4X);
-        LiveWindow.addSensor("Climbing", "RightEncoder", climbingRightEncoder);
-        climbingRightEncoder.setDistancePerPulse(1.0);
-        climbingRightEncoder.setPIDSourceType(PIDSourceType.kRate);
         climbingLeftRopeEncoder = new Encoder(6, 7, false, EncodingType.k4X);
         LiveWindow.addSensor("Climbing", "LeftRopeEncoder", climbingLeftRopeEncoder);
         climbingLeftRopeEncoder.setDistancePerPulse(1.0);

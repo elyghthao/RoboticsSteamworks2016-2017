@@ -33,8 +33,6 @@ public class Climbing extends Subsystem {
     private final DigitalInput limitSwitch = RobotMap.climbinglimitSwitch;
     private final CANTalon leftSweeper = RobotMap.climbingLeftSweeper;
     private final CANTalon rightSweeper = RobotMap.climbingRightSweeper;
-    private final Encoder leftEncoder = RobotMap.climbingLeftEncoder;
-    private final Encoder rightEncoder = RobotMap.climbingRightEncoder;
     private final Encoder leftRopeEncoder = RobotMap.climbingLeftRopeEncoder;
     private final Encoder rightRopeEncoder = RobotMap.climbingRightRopeEncoder;
 
