@@ -83,14 +83,14 @@ public class DrivePegCommand extends Command {
 			targetFound = true;
 			// myCenterX is in screen coordinate. We need to convert it to robot
 			// coordinates.
-			double direction = myCenterX - (Robot.IMG_WIDTH / 2) / (Robot.IMG_WIDTH / 2);
+			double direction = (myCenterX - (Robot.IMG_WIDTH / 2)) / (Robot.IMG_WIDTH / 2);
 			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(.2, direction, 0.0, 0.0);
 		} else if (targetFound) {
 			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
 			// Here is where we position the gear and release it.
 			done = true;
 		} else {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(.2, .2, 0.0, 0.0);
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-.15, -15, 0.0, 0.0);
 		}
 	}
 

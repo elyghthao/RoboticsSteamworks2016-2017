@@ -13,6 +13,7 @@ package org.usfirst.frc3588.Steamworks.commands;
 import org.usfirst.frc3588.Steamworks.Robot;
 import org.usfirst.frc3588.Steamworks.RobotMap;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -41,16 +42,20 @@ public class GearReleaseCommand extends Command {
     // Called just before this Command runs the first time
     @Override
 	protected void initialize() {
-    }
+    	RobotMap.gearsSolenoid.set(Value.kForward);
+    	Timer.delay(.25);
+    	RobotMap.gearsSolenoid.set(Value.kOff);
+    	}
+    
 
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	if (!RobotMap.gearslineBreak.get()) {
-    		RobotMap.gearsSolenoid.set(Value.kForward);
-    		end();
+//    	if (!RobotMap.gearslineBreak.get()) {
+//    		RobotMap.gearsSolenoid.set(Value.kForward);
+//    		end();
     	}
-    }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
@@ -67,5 +72,6 @@ public class GearReleaseCommand extends Command {
     // subsystems is scheduled to run
     @Override
 	protected void interrupted() {
+    	end();
     }
 }
