@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	NetworkTable table;
-	GripPipeline pipeline;
+	GripPipelinePeg pipeline;
 
 	public static OI oi;
 	public static CameraServer server;
