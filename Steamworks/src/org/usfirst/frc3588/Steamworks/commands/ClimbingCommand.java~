@@ -69,7 +69,7 @@ public class ClimbingCommand extends Command {
 		// });
 
 		if (!contoursFound) {
-			RobotMap.climbingMotor.set(1);
+			RobotMap.climbingMotor.set(.5);
 		} else {
 			end();
 		}
