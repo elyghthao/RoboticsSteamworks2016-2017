@@ -53,15 +53,15 @@ public class DriveCommand extends Command {
 	protected void execute() {
 
 		if (currentJoystick.getPOV() == 270) {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(driveDirection * 0.3, 0, 0, 0);
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(driveDirection * 1.0, 0, 0, 0);
 		} else if (currentJoystick.getPOV() == 180) {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(0, driveDirection * 0.3, 0, 0);
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(0, driveDirection * 1.0, 0, 0);
 		} else if (currentJoystick.getPOV() == 90) {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-driveDirection * 0.3, 0, 0, 0);
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-driveDirection * 1.0, 0, 0, 0);
 		} else if (currentJoystick.getPOV() == 0) {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(0, -driveDirection * 0.3, 0, 0);
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(0, -driveDirection * 1.0, 0, 0);
 		} else {
-			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-driveDirection * currentJoystick.getX(),
+			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(driveDirection * currentJoystick.getX(),
 					driveDirection * currentJoystick.getY(), currentJoystick.getTwist() * .5, 0);
 			if (Robot.oi.joystick1.getThrottle() > 0) {
 				currentJoystick = Robot.oi.joystick2;
