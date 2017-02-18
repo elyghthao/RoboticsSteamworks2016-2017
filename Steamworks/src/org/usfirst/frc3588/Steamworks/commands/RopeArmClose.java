@@ -19,10 +19,10 @@ import org.usfirst.frc3588.Steamworks.RobotMap;
  *
  */
 public class RopeArmClose extends Command {
-	private static final int OPEN_POSITION =-497;
-	private static final double RETRACT_SPEED = 1.0;
-	private static final double DEPLOY_SPEED = -1.0;
+	private static final int HIGH_END = 0 + 10;
+	private static final double RETRACT_SPEED = -1.0;
 	private static final double OFF = 0.0;
+	private static boolean done = false;
 
 	private Encoder leftRopeEncoder;
 
@@ -45,40 +45,30 @@ public class RopeArmClose extends Command {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {leftRopeEncoder = new Encoder(6, 7, false, Encoder.EncodingType.k1X);
-	leftRopeEncoder.reset();
-    	
+    protected void initialize() {
+    	leftRopeEncoder = new Encoder(6, 7, false, Encoder.EncodingType.k1X);
+    	RobotMap.climbingLeftSweeper.set(RETRACT_SPEED);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	int leftCount = leftRopeEncoder.get();
 
-		if (leftCount < OPEN_POSITION) {
-			RobotMap.climbingLeftSweeper.set(DEPLOY_SPEED);
-
-		} else if (leftCount > OPEN_POSITION) {
-			RobotMap.climbingLeftSweeper.set(RETRACT_SPEED);
-		} else if (leftCount == OPEN_POSITION) {
-			RobotMap.climbingLeftSweeper.set(OFF);
+		if (leftCount <= HIGH_END) {
+			done = true;
 		}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	int leftCount = leftRopeEncoder.get();
-
-		if (leftCount == OPEN_POSITION) {
-			return true;
-		}
-
-		else {
-			return false;
-		}
+    	
+			return done;
+		
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	RobotMap.climbingLeftSweeper.set(OFF);
     }
 
     // Called when another command which requires one or more of the same
