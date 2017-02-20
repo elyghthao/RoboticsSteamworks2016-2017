@@ -10,6 +10,7 @@
 
 package org.usfirst.frc3588.Steamworks.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc3588.Steamworks.Robot;
 
@@ -38,9 +39,12 @@ public class directionSwitch extends Command {
 	protected void initialize() {
 		if (DriveCommand.driveDirection == 1) {
 			DriveCommand.driveDirection = -1;
+			System.out.println("Direction Switched");
 		} else {
 			DriveCommand.driveDirection = 1;
+			System.out.println("Direction Switched");
 		}
+		Timer.delay(0.25);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

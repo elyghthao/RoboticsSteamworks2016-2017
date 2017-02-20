@@ -43,10 +43,10 @@ public class GearCloseCommand extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		/*RobotMap.gearsSolenoid.set(Value.kReverse);
-		Timer.delay(.25);
-		RobotMap.gearsSolenoid.set(Value.kOff);
-		*/
+		/*
+		 * RobotMap.gearsSolenoid.set(Value.kReverse); Timer.delay(.25);
+		 * RobotMap.gearsSolenoid.set(Value.kOff);
+		 */
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -57,7 +57,7 @@ public class GearCloseCommand extends Command {
 		Timer.delay(.25);
 		RobotMap.gearsSolenoid.set(Value.kOff);
 		done = true;
-		
+
 		// if (RobotMap.gearslineBreak.get()) {
 		// RobotMap.gearsSolenoid.set(Value.kReverse);
 		// end();
