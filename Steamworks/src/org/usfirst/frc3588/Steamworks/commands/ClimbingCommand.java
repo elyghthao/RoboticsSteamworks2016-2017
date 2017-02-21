@@ -27,8 +27,8 @@ public class ClimbingCommand extends Command {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	private boolean slowSpeed = true;
-	private static final double SLOW_SPEED = 0.3;
-	private static final double FAST_SPEED = .75;
+	private static final double SLOW_SPEED = 0.5;
+	private static final double FAST_SPEED = 1.0;
 	private static final double STOP = 0.0;
 	private static final double TRIGGER_POINT = 10;
 	private static final double CONTINUE_CLIMBING = 1.5;
@@ -53,7 +53,7 @@ public class ClimbingCommand extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		contoursFound = false;
+		/*contoursFound = false;
 		visionThread = new VisionThread(Robot.cam0, new GripPipelinePeg(), pipeline -> {
 			synchronized (imgLock) {
 				System.out.println(pipeline.filterContoursOutput().isEmpty());
@@ -61,7 +61,7 @@ public class ClimbingCommand extends Command {
 
 			}
 		});
-		visionThread.start();
+		visionThread.start();*/
 		RobotMap.climbingMotor.set(SLOW_SPEED);
 	}
 
@@ -90,7 +90,7 @@ public class ClimbingCommand extends Command {
 				RobotMap.climbingMotor.set(SLOW_SPEED);
 				slowSpeed = true;
 			}
-			Timer.delay(0.5);
+			Timer.delay(1.0);
 		}
 		if (RobotMap.climbingTouchpadSensor.getAverageValue() <= TRIGGER_POINT) {
 			RobotMap.climbingMotor.set(FAST_SPEED);

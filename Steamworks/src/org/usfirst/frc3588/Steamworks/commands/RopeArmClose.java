@@ -20,9 +20,9 @@ import org.usfirst.frc3588.Steamworks.RobotMap;
  */
 public class RopeArmClose extends Command {
 	private static final int L_HIGH_END = 0 + 10;
-	private static final int R_HIGH_END = 0 + -10;
+	private static final int R_HIGH_END = 0 + 10;
 	private static final double L_RETRACT_SPEED = -1.0;
-	private static final double R_RETRACT_SPEED = 1.0;
+	private static final double R_RETRACT_SPEED = -1.0;
 	private static final double OFF = 0.0;
 	private static boolean done = false;
 
@@ -48,27 +48,34 @@ public class RopeArmClose extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		leftRopeEncoder = new Encoder(6, 7, false, Encoder.EncodingType.k1X);
-		rightRopeEncoder = new Encoder(6, 7, false, Encoder.EncodingType.k1X);
-		RobotMap.climbingRightSweeper.set(R_RETRACT_SPEED);
 		RobotMap.climbingLeftSweeper.set(L_RETRACT_SPEED);
+		RobotMap.climbingRightSweeper.set(R_RETRACT_SPEED);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		int leftCount = leftRopeEncoder.get();
-		int rightCount = rightRopeEncoder.get();
-
-		if (leftCount <= L_HIGH_END && rightCount>= R_HIGH_END) {
+	protected void execute() {		
+		int leftCount = Math.abs(RobotMap.climbingLeftRopeEncoder.get());
+		int rightCount = Math.abs(RobotMap.climbingRightRopeEncoder.get());
+		System.out.println("leftCount = " + leftCount + " rightCount = " + rightCount);
+		
+		rightCount = leftCount;
+		
+		if (leftCount <= L_HIGH_END ) {
+			RobotMap.climbingLeftSweeper.set(OFF);
+		}
+		if (rightCount <= R_HIGH_END) {
+			RobotMap.climbingRightSweeper.set(OFF);
+		}
+		if (RobotMap.climbingLeftRopeEncoder.getStopped() && RobotMap.climbingRightRopeEncoder.getStopped())
+		{
 			done = true;
 		}
 	}
+	
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-
 		return done;
-
 	}
 
 	// Called once after isFinished returns true
@@ -80,5 +87,6 @@ public class RopeArmClose extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }
