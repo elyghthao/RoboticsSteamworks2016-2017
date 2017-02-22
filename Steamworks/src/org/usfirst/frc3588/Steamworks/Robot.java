@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Robot extends IterativeRobot {
 
-	Command autonomousCommand;
+	/*public static*/ Command autonomousCommand;
 	NetworkTable table;
 	GripPipelinePeg pipeline;
 
@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 	public static CameraServer server;
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
-	public static UsbCamera cam0;
+	//public static UsbCamera cam0;
 	public static UsbCamera cam1;
 
 	// private VisionThread visionThread;
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 		// pointers. Bad news. Don't move it.e
 		oi = new OI();
 
-		cam0 = CameraServer.getInstance().startAutomaticCapture(0);
+		//cam0 = CameraServer.getInstance().startAutomaticCapture(0);
 		cam1 = CameraServer.getInstance().startAutomaticCapture(1);
 
 		// server = CameraServer.getInstance();
@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
 
 		// UsbCamera camera =
 		// CameraServer.getInstance().startAutomaticCapture();
-		cam0.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		//cam0.setResolution(IMG_WIDTH, IMG_HEIGHT);
 
 		// while(true) {
 		// double[] areas = table.getNumberArray("area", defaultValue);

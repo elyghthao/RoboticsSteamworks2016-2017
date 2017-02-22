@@ -58,7 +58,6 @@ public class AutonomousCommand extends Command {
 		RobotMap.chassisGyro.reset();
 		RobotMap.chassisRobotDrive.setMaxOutput(0.5);
 		autoMode = (int) SmartDashboard.getNumber("DB/Slider 0", 0.0);
-		System.out.println("something went wrong :(" + autoMode + ")");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

@@ -43,9 +43,9 @@ public class GripPipelinePeg implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {64.74820143907128, 101.40827951995131};
-		double[] hslThresholdSaturation = {133.00359712230215, 255.0};
-		double[] hslThresholdLuminance = {121.53776978417267, 255.0};
+		double[] hslThresholdHue = {51.612216219714995, 83.05597588774842};
+		double[] hslThresholdSaturation = {169.6942446043165, 255.0};
+		double[] hslThresholdLuminance = {117.77877697841733, 194.07849829351537};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -55,14 +55,14 @@ public class GripPipelinePeg implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 250.0;
+		double filterContoursMinArea = 200.0;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
-		double filterContoursMaxWidth = 500.0;
+		double filterContoursMaxWidth = 1000.0;
 		double filterContoursMinHeight = 0.0;
 		double filterContoursMaxHeight = 1000.0;
-		double[] filterContoursSolidity = {0, 100};
-		double filterContoursMaxVertices = 10000.0;
+		double[] filterContoursSolidity = {0.0, 100};
+		double filterContoursMaxVertices = 1000000.0;
 		double filterContoursMinVertices = 0.0;
 		double filterContoursMinRatio = 0.0;
 		double filterContoursMaxRatio = 1000.0;

@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Robot extends IterativeRobot {
 
-	Command autonomousCommand;
+	/*public static*/ Command autonomousCommand;
 	NetworkTable table;
 	GripPipelinePeg pipeline;
 
