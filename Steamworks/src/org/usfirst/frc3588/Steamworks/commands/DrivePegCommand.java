@@ -87,7 +87,6 @@ public class DrivePegCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		System.out.println("test");
 		// Robot.autonomousCommand.
 		int myCenterX = 0;
 		Timer.delay(1.0);
