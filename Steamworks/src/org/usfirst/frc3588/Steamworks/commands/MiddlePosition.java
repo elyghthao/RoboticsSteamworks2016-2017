@@ -46,7 +46,7 @@ public class MiddlePosition extends CommandGroup {
 		addSequential(new DelayCommand (0.5));
 		addSequential(new GearReleaseCommand());
 		addSequential(new DriveStraight(0.7, 0.5));
-		addSequential(new DriveStraight(1.5, -0.7));
+		addSequential(new DriveStraight(0.7, -0.7));
 		addSequential(new GearCloseCommand());
 		
 		System.out.println("Finished creating MiddlePosition.");
