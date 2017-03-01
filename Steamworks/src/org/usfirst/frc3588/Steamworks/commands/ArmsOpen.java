@@ -42,6 +42,11 @@ public class ArmsOpen extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	int leftCount = Math.abs(RobotMap.climbingLeftRopeEncoder.get());
+		int rightCount = Math.abs(RobotMap.climbingRightRopeEncoder.get());
+		System.out.println("leftCount = " + leftCount);
+		System.out.println("rightCount = " + rightCount);
+		
     	RobotMap.climbingLeftSweeper.set(0.5);
     	RobotMap.climbingRightSweeper.set(0.5);
     }

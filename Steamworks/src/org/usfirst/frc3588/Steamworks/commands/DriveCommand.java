@@ -53,7 +53,7 @@ public class DriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if (Robot.oi.directionSwitch1.get() || Robot.oi.directionSwitch2.get()) {
+		if (Robot.oi.directionSwitch1.get() ) {
 			if (driveDirection == 1) {
 				driveDirection = -1;
 				System.out.println("Direction Switched XD");
