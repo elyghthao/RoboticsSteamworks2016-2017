@@ -27,8 +27,8 @@ public class ClimbingCommand extends Command {
 	private VisionThread visionThread;
 	private final Object imgLock = new Object();
 	private boolean slowSpeed = true;
-	private static final double SLOW_SPEED = 0.5;
-	private static final double FAST_SPEED = 1.0;
+	private static final double SLOW_SPEED = 1.0;
+	private static final double FAST_SPEED = 0.5;
 	private static final double STOP = 0.0;
 	private static final double TRIGGER_POINT = 10;
 	private static final double CONTINUE_CLIMBING = 1.5;

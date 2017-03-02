@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
 	public static UsbCamera cam2;
-	public static UsbCamera cam3;
+	public static UsbCamera cam0;
 
 	// private VisionThread visionThread;
 	// private double centerX = 0.0;
@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		cam2 = CameraServer.getInstance().startAutomaticCapture(0);
-		cam3 = CameraServer.getInstance().startAutomaticCapture(1);
+		cam0= CameraServer.getInstance().startAutomaticCapture(1);
 
 		// server = CameraServer.getInstance();
 		// server.startAutomaticCapture(new UsbCamera("cam0", 0));

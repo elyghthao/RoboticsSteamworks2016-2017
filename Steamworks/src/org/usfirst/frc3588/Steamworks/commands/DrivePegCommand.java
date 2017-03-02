@@ -56,12 +56,11 @@ public class DrivePegCommand extends Command {
 	@Override
 	protected void initialize() {
 		System.out.println("Drive Peg Command Initialize");
-		visionThread = new VisionThread(Robot.cam3, new GripPipelinePeg(), pipeline -> {
+		visionThread = new VisionThread(Robot.cam2, new GripPipelinePeg(), pipeline -> {
 			int leftPosition = Robot.IMG_WIDTH;
 			int rightPosition = 0;
 			Rect r1 = null;
 			for (int i = 0; i < pipeline.filterContoursOutput().size(); i++) {
-				System.out.println(pipeline.filterContoursOutput().size());
 				r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(i));
 
 				if (r1.x < leftPosition) {
@@ -73,7 +72,6 @@ public class DrivePegCommand extends Command {
 			}
 			contours = pipeline.filterContoursOutput().size();
 			if (contours > 0) {
-				System.out.println("thats weird");
 				synchronized (imgLock) {
 					centerX = (leftPosition + rightPosition) / 2;
 				}
@@ -110,12 +108,12 @@ public class DrivePegCommand extends Command {
 			if (direction > 10) {
 				RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(1.0, 0.0, 0.0, 0.0);
 				System.out.println("is right");
-				Timer.delay(2.5);
+				Timer.delay(.5);
 
 			} else if (direction < -10) {
 				RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-1.0, 0.0, 0.0, 0.0);
 				System.out.println("is left");
-				Timer.delay(2.5);
+				Timer.delay(.5);
 
 			} else {
 				count++;
@@ -128,13 +126,13 @@ public class DrivePegCommand extends Command {
 			}
 		} else if (!goLeft) {
 			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(-1.0, 0, 0, 0);
-			Timer.delay(2.5);
+			Timer.delay(.5);
 			System.out.println("In goLeft");
 			goLeft = true;
 
 		} else if (!goRight) {
 			RobotMap.chassisRobotDrive.mecanumDrive_Cartesian(1.0, 0, 0, 0);
-			Timer.delay(4.0);
+			Timer.delay(1.0);
 			System.out.println("In goRight");
 			goRight = true;
 

@@ -8,7 +8,7 @@ public class LeftPosition extends CommandGroup {
 		addSequential((new DriveStraight( 3, 1)));
 		addSequential((new Turn (26.3, 0)));
 		addSequential(new DriveStraight(1.0, 0.7));
-		addSequential(new DrivePegCommand());
+		//addSequential(new DrivePegCommand());
 		addSequential(new DriveStraight(0.75, 0.7));
 		addSequential(new GearReleaseCommand());
 		addSequential(new DriveStraight(1.0, 0.7));
